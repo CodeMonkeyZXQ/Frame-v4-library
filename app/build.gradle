@@ -31,10 +31,10 @@ android {
 
     signingConfigs {
         release {
-            keyAlias "dashenggouche"//签名的别名
-            keyPassword "etong123456"//密码
-            storeFile file('E:/Etongzuche/trunk/app/android/frame-v2/APK/dashenggouche.keystore')//签名文件的路径
-            storePassword "etong123456"//签名密码
+//            keyAlias "******"//签名的别名
+//            keyPassword "*******"//密码
+//            storeFile file('*******')//签名文件的路径
+//            storePassword "*******"//签名密码
 //            storeType ""//类型
         }
     }
