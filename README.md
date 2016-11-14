@@ -1,5 +1,3 @@
-# Frame-v4-library
-
 # Android开发框架Frame-v4-library
 
 ## 一、在你的项目中导入框架的aar包
