@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/dialog_loading_main"
+    style="@style/layout_dialog"
+    android:gravity="center"
+    android:orientation="horizontal" >
+
+    <RelativeLayout style="@style/layout" >
+
+        <ImageView
+            android:id="@+id/dialog_loading_animation"
+            android:layout_width="32dip"
+            android:layout_height="32dip"
+            android:layout_centerInParent="true"
+            android:src="@drawable/default_loading_1" />
+
+        <TextView
+            android:id="@+id/dialog_loading_progress"
+            style="@style/text_smaller"
+            android:layout_centerInParent="true"
+            android:text=""
+            android:textColor="@color/orange_trans" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/dialog_loading_prompt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="3dp"
+        android:text="数据加载中"
+        android:textColor="@color/white" />
+
+</LinearLayout>

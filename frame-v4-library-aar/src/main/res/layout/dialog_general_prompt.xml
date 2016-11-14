@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/dialog_loading_main"
+    style="@style/layout_prompt"
+    android:background="@color/white"
+    android:paddingBottom="16dp" >
+
+    <TextView
+        android:id="@+id/dialog_general_title"
+        style="@style/text"
+        android:padding="8dp"
+        android:textColor="@color/black" />
+
+    <View style="@style/divider" />
+
+    <TextView
+        android:id="@+id/dialog_general_text"
+        style="@style/text_smaller"
+        android:layout_marginBottom="16dp"
+        android:padding="16dp"
+        android:textColor="@color/black" />
+
+    <LinearLayout
+        style="@style/layout_full_width"
+        android:orientation="horizontal" >
+
+        <LinearLayout
+            style="@style/layout_full_width"
+            android:layout_weight="1"
+            android:gravity="center" >
+
+            <Button
+                android:id="@+id/dialog_general_cancle"
+                style="@style/button"
+                android:paddingBottom="5dp"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:paddingTop="5dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/layout_full_width"
+            android:layout_weight="1"
+            android:gravity="center" >
+
+            <Button
+                android:id="@+id/dialog_general_ok"
+                style="@style/button"
+                android:paddingBottom="5dp"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:paddingTop="5dp" />
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

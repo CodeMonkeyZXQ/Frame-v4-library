@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/layout_block"
+    android:background="@color/white"
+    android:orientation="vertical"
+    android:paddingBottom="8dip" >
+
+    <RelativeLayout
+        style="@style/layout_block"
+        android:background="@color/white"
+        android:padding="8dip" >
+
+        <TextView
+            android:id="@+id/dialog_input_title"
+            style="@style/title_smaller"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:text="修改姓名" />
+
+        <ImageButton
+            android:id="@+id/dialog_input_close"
+            style="@style/icon_close"
+            android:layout_alignParentRight="true" />
+    </RelativeLayout>
+    <View style="@style/divider" />
+
+    <LinearLayout
+        style="@style/layout_block"
+        android:background="@color/white"
+        android:paddingBottom="20dip"
+        android:paddingTop="20dip" >
+
+        <EditText
+            android:id="@+id/dialog_input_name"
+            style="@style/textarea_single"
+            android:layout_height="match_parent"
+            android:hint="请输入文字" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/dialog_input_confirm"
+        style="@style/button_block"
+        android:text="确定" />
+
+</LinearLayout>

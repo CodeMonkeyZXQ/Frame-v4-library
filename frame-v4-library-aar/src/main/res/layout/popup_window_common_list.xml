@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/layout_popup"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:gravity="center" >
+
+    <View
+        android:id="@+id/popup_window_titledivider"
+        style="@style/divider"
+        android:visibility="gone" />
+
+    <RelativeLayout
+        android:id="@+id/popup_window_titlebar"
+        style="@style/layout"
+        android:layout_width="match_parent"
+        android:background="@color/white"
+        android:paddingLeft="8dip"
+        android:paddingRight="8dip" >
+
+        <ImageView
+            android:id="@+id/popup_window_logo"
+            style="@style/image_logo" />
+
+        <TextView
+            android:id="@+id/popup_window_title"
+            style="@style/title_smaller"
+            android:layout_centerInParent="true"
+            android:text="@string/app_name" />
+
+        <ImageButton
+            android:id="@+id/popup_window_close"
+            style="@style/icon_close"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:contentDescription="cancel" />
+    </RelativeLayout>
+
+    <View style="@style/divider" />
+
+    <ListView
+        android:id="@+id/popup_window_list"
+        style="@style/layout_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center" />
+
+</LinearLayout>

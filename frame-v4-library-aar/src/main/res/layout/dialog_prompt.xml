@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/dialog_loading_main"
+    style="@style/layout_prompt" >
+
+    <LinearLayout
+        style="@style/layout"
+        android:padding="4dip" >
+
+        <TextView
+            style="@style/title"
+            android:text="订金说明" />
+
+        <ImageView
+            style="@style/icon_close"
+            android:visibility="gone" />
+    </LinearLayout>
+
+    <View style="@style/divider" />
+
+    <LinearLayout
+        style="@style/layout"
+        android:layout_gravity="center"
+        android:orientation="vertical"
+        android:padding="4dip" >
+
+        <TextView
+            style="@style/text_smaller"
+            android:layout_marginTop="2dp"
+            android:text="1.获得到底价后，才需要支付定金"
+            android:textColor="@color/white" />
+
+        <TextView
+            style="@style/text_smaller"
+            android:layout_marginTop="2dp"
+            android:text="2.订金可抵车款"
+            android:textColor="@color/white" />
+
+        <TextView
+            style="@style/text_smaller"
+            android:layout_marginTop="2dp"
+            android:text="3.取消订单后，7天内退还定金"
+            android:textColor="@color/white" />
+    </LinearLayout>
+
+</LinearLayout>

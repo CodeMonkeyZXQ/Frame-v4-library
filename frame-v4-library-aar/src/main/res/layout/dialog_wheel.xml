@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/dialog_wheel_main"
+    style="@style/layout"
+    android:orientation="vertical"
+    android:paddingBottom="10dip" >
+
+    <RelativeLayout
+        android:id="@+id/popup_window_titlebar"
+        style="@style/layout"
+        android:layout_width="match_parent"
+        android:background="@color/white"
+        android:paddingLeft="8dip"
+        android:paddingRight="8dip" >
+
+        <ImageView
+            android:id="@+id/popup_window_logo"
+            style="@style/image_logo" />
+
+        <TextView
+            android:id="@+id/popup_window_title"
+            style="@style/title_smaller"
+            android:layout_width="match_parent"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:text="视频类型" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingLeft="10.0dip"
+        android:paddingRight="10.0dip" >
+
+        <com.etong.android.frame.widget.WheelView
+            android:id="@+id/wheel_wheelview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+</LinearLayout>
