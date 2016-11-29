@@ -131,7 +131,7 @@ public class AppUpdateActivity extends BaseSubscriberActivity {
         tip += info.getComments();
         if (!TextUtils.isEmpty(info.getOldMd5())) {// 旧MD5不为空
             if (!SignUtils.checkMd5(info.getOldApkSource(), info.getOldMd5())) {// 本地安装的apkMD5错误
-                tip = "注意！注意！注意！\n您安装的是盗版应用，经过非法修改的应用可能会损害您的权益，请到各应用市场下载正版！";
+                tip = "注意！注意！注意！\n您安装的可能是盗版应用，经过非法修改的应用可能会损害您的权益，请到各应用市场下载正版！";
                 info.setInstall(true);// 设置更新过程不可跳过
                 mUpdateTip.setTextColor(Color.RED);
                 mBtnCancle.setClickable(false);

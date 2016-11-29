@@ -185,6 +185,7 @@ public class AppUpdateProvider {
     private class UpDateTask extends AsyncTask<Void, Integer, Void> {
         Boolean run = true;
         AppUpdate info = null;
+        HttpMethod method = null;
 
         // onPreExecute方法用于在执行后台任务前做一些UI操作
         @Override
@@ -217,12 +218,7 @@ public class AppUpdateProvider {
 
         @Subscriber(tag = CommonEvent.UPDATE)
         public void onUpdateConfigFinish(HttpMethod method) {
-            int errCode = method.data().getIntValue("errCode");
-            if (errCode == 0)
-                info = method.data().getObject("entity", AppUpdate.class);
-            if (errCode == HttpPublisher.NETWORK_ERROR) {
-                action.fail(ERR_NETWORK, "访问网络失败");
-            }
+            this.method = method;
             run = false;
         }
 
@@ -234,6 +230,14 @@ public class AppUpdateProvider {
         // onPostExecute方法用于在执行完后台任务后更新UI,显示结果
         @Override
         protected void onPostExecute(Void arg0) {
+            int errCode = method.data().getIntValue("errCode");
+            if (errCode == HttpPublisher.NETWORK_ERROR) {
+                action.fail(ERR_NETWORK, "访问网络失败");
+                return;
+            }
+            if (errCode == 0) {
+                info = method.data().getObject("entity", AppUpdate.class);
+            }
             if (info != null) {
                 info.setOldApkSource(oldApkSource);
                 String com = info.getComments();

@@ -8,6 +8,9 @@ import android.widget.TextView;
 
 import com.alibaba.fastjson.JSONObject;
 import com.etong.android.frame.library.search.SubscriberActivity;
+import com.etong.android.frame.publisher.HttpPublisher;
+import com.etong.android.frame.update.AppUpdateProvider;
+import com.etong.android.frame.update.AppUpdateResultAction;
 import com.etong.android.frame.utils.CustomToast;
 import com.etong.android.frame.utils.UploadImageProvider;
 import com.etong.android.frame.utils.logger.Logger;
@@ -104,7 +107,7 @@ public class MainActivity extends SubscriberActivity {
                                 });*/
             }
         });
-/*        AppUpdateProvider.getInstance().initialize(HttpPublisher.getInstance(), "1003");
+        AppUpdateProvider.getInstance().initialize(HttpPublisher.getInstance(), "1003");
         AppUpdateProvider.getInstance().getUpdateInfo("http://payment.suiyizuche.com:8080/version/app/1003", new AppUpdateResultAction() {
             @Override
             public void noUpdate() {
@@ -122,7 +125,7 @@ public class MainActivity extends SubscriberActivity {
                         break;
                 }
             }
-        });*/
+        });
 
 //        this.getFragmentManager().beginTransaction()
 //                .replace(R.id.frame_layout, Camera2Fragment.newInstance())
