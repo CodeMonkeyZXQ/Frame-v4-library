@@ -31,7 +31,7 @@ public class ServiceManager {
 	private static LayoutInflater inflater;
 
 	private ServiceManager() {
-	};
+	}
 
 	/**
 	 * @Title : getConnectivityManager
