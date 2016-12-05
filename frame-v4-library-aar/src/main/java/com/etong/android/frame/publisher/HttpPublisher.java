@@ -6,6 +6,7 @@ import android.net.NetworkInfo;
 import android.text.TextUtils;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONException;
 import com.alibaba.fastjson.JSONObject;
 import com.etong.android.frame.event.CommonEvent;
 import com.etong.android.frame.utils.logger.Logger;
@@ -42,17 +43,15 @@ public class HttpPublisher extends Publisher {
     public static final int VOLLEY_ERROR = HTTP_ERROR;
 
     private Context mContext = null;
-    //    private static HttpPublisher instance = null;
     private OkHttpClient client = null;
     private Map<String, String> mHttpToken = new HashMap<>();
     private static final String DEFAULT_TOKEN_NAME = "accessToken";
-    private static final String TAG = "HttpPubliser";
 
-    public class JsonObjectCallback implements Callback {
+    private class JsonObjectCallback implements Callback {
         private HttpMethod method;
         private String eventTag;
 
-        public JsonObjectCallback(String tag, HttpMethod method) {
+        JsonObjectCallback(String tag, HttpMethod method) {
             this.eventTag = tag;
             this.method = method;
         }
@@ -76,10 +75,30 @@ public class HttpPublisher extends Publisher {
         }
 
         @Override
-        public void onResponse(Call call, Response response) throws IOException {
-            JSONObject data = JSON.parseObject(response.body().string());
+        public void onResponse(Call call, Response response){
+            JSONObject data;
+            String str = null;
+            try {
+                str = response.body().string();
+                data = JSON.parseObject(str);
+            } catch (IOException e) {
+                data = new JSONObject();
+                data.put("errCode", HTTP_ERROR);
+                data.put("errName", "Http访问异常,返回数据异常");
+                e.printStackTrace();
+            }
+            catch (JSONException e1){
+                data = new JSONObject();
+                data.put("data", str);
+                data.put("errCode", HTTP_ERROR);
+                data.put("errName", "Http访问异常,返回数据异常");
+                e1.printStackTrace();
+            }
+
             EventBus.getDefault().post(method.put(data), eventTag);
-            Logger.d(method.getParam().toString());
+            if(method.getParam()!=null){
+                Logger.d(method.getParam().toString());
+            }
             Logger.json(method.data().toJSONString());
         }
     }
@@ -91,7 +110,7 @@ public class HttpPublisher extends Publisher {
     private HttpPublisher() {
     }
 
-    public static final HttpPublisher getInstance() {
+    public static HttpPublisher getInstance() {
         return Holder.INSTANCE;
     }
 
@@ -99,7 +118,6 @@ public class HttpPublisher extends Publisher {
         mContext = context.getApplicationContext();
         client = okHttpClient;
     }
-
 
     /**
      * @Title : setToken @Description :

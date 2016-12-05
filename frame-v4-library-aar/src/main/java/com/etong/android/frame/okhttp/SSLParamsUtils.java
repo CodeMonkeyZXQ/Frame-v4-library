@@ -24,7 +24,7 @@ import javax.net.ssl.X509TrustManager;
  */
 public class SSLParamsUtils {
 
-    public static SSLParams sslParams = null;
+    public static SSLParams sslParams = getSslSocketFactory(null,null,null);
 
     public static SSLParams getSslSocketFactory(InputStream[] certificates, InputStream bksFile, String password) {
         if(sslParams==null){

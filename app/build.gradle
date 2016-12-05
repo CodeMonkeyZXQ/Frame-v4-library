@@ -14,7 +14,7 @@ android {
 
         ndk {
             //选择要添加的对应cpu类型的.so库:'armeabi', 'armeabi-v7a', 'armeabi-v8a', 'x86', 'x86_64', 'mips', 'mips64'
-            abiFilters 'armeabi', 'armeabi-v7a', 'armeabi-v8a', 'x86', 'x86_64', 'mips', 'mips64'
+            abiFilters 'armeabi', 'x86'
         }
 
         manifestPlaceholders = [
@@ -42,11 +42,11 @@ android {
     buildTypes {
         debug {
             manifestPlaceholders = [
-                    JPUSH_PKGNAME: "com.etong.android.frame.library",//JPush上注册的包名
-                    JPUSH_APPKEY : "809e7c2add6f66268b11440a", //JPush上注册的包名对应的appkey.
-                    JPUSH_CHANNEL: "developer-default", //JPush.暂时填写默认值即可.
-
-                    PGYER_APPID  : "701e5d51de0a931dd3f19abc7f168f3d",//蒲公英appkey
+//                    JPUSH_PKGNAME: "com.etong.android.frame.library",//JPush上注册的包名
+//                    JPUSH_APPKEY : "809e7c2add6f66268b11440a", //JPush上注册的包名对应的appkey.
+//                    JPUSH_CHANNEL: "developer-default", //JPush.暂时填写默认值即可.
+//
+//                    PGYER_APPID  : "701e5d51de0a931dd3f19abc7f168f3d",//蒲公英appkey
                     WECHAT_APPID : "00000000000000000000000000000000000000000",//微信分享及支付appkey
             ]
         }
@@ -56,11 +56,11 @@ android {
             signingConfig signingConfigs.release
 
             manifestPlaceholders = [
-                    JPUSH_PKGNAME: "com.etong.android.frame.library",//JPush上注册的包名
-                    JPUSH_APPKEY : "809e7c2add6f66268b11440a", //JPush上注册的包名对应的appkey.
-                    JPUSH_CHANNEL: "developer-default", //JPush.暂时填写默认值即可.
-
-                    PGYER_APPID  : "701e5d51de0a931dd3f19abc7f168f3d",//蒲公英appkey
+//                    JPUSH_PKGNAME: "com.etong.android.frame.library",//JPush上注册的包名
+//                    JPUSH_APPKEY : "809e7c2add6f66268b11440a", //JPush上注册的包名对应的appkey.
+//                    JPUSH_CHANNEL: "developer-default", //JPush.暂时填写默认值即可.
+//
+//                    PGYER_APPID  : "701e5d51de0a931dd3f19abc7f168f3d",//蒲公英appkey
                     WECHAT_APPID : "00000000000000000000000000000000000000000",//微信分享及支付appkey
             ]
         }
@@ -70,19 +70,19 @@ android {
         etong {
             manifestPlaceholders = [CHANNEL_VALUE: "etong"]
         }
-        qh360 {
-            manifestPlaceholders = [CHANNEL_VALUE: "qh360"]
-        }
-        baidu {
-            manifestPlaceholders = [CHANNEL_VALUE: "baidu"]
-        }
-        anzhi {
-            manifestPlaceholders = [CHANNEL_VALUE: "anzhi"]
-        }
-        tencent {
-            manifestPlaceholders = [CHANNEL_VALUE: "tencent"]
-        }
-}
+//        qh360 {
+//            manifestPlaceholders = [CHANNEL_VALUE: "qh360"]
+//        }
+//        baidu {
+//            manifestPlaceholders = [CHANNEL_VALUE: "baidu"]
+//        }
+//        anzhi {
+//            manifestPlaceholders = [CHANNEL_VALUE: "anzhi"]
+//        }
+//        tencent {
+//            manifestPlaceholders = [CHANNEL_VALUE: "tencent"]
+//        }
+    }
 }
 
 repositories {

@@ -8,9 +8,8 @@ import android.widget.TextView;
 
 import com.alibaba.fastjson.JSONObject;
 import com.etong.android.frame.library.search.SubscriberActivity;
+import com.etong.android.frame.publisher.HttpMethod;
 import com.etong.android.frame.publisher.HttpPublisher;
-import com.etong.android.frame.update.AppUpdateProvider;
-import com.etong.android.frame.update.AppUpdateResultAction;
 import com.etong.android.frame.utils.CustomToast;
 import com.etong.android.frame.utils.UploadImageProvider;
 import com.etong.android.frame.utils.logger.Logger;
@@ -107,7 +106,7 @@ public class MainActivity extends SubscriberActivity {
                                 });*/
             }
         });
-        AppUpdateProvider.getInstance().initialize(HttpPublisher.getInstance(), "1003");
+/*        AppUpdateProvider.getInstance().initialize(HttpPublisher.getInstance(), "1003");
         AppUpdateProvider.getInstance().getUpdateInfo("http://payment.suiyizuche.com:8080/version/app/1003", new AppUpdateResultAction() {
             @Override
             public void noUpdate() {
@@ -125,11 +124,13 @@ public class MainActivity extends SubscriberActivity {
                         break;
                 }
             }
-        });
+        });*/
 
 //        this.getFragmentManager().beginTransaction()
 //                .replace(R.id.frame_layout, Camera2Fragment.newInstance())
 //                .commit();
+
+        HttpPublisher.getInstance().sendRequest(new HttpMethod("https://kyfw.12306.cn/otn/",null),"test https");
     }
 
     @Override
@@ -204,6 +205,11 @@ public class MainActivity extends SubscriberActivity {
     @Subscriber(tag = "uploadImg")
     public void onPhoto(JSONObject data) {
         Logger.json(data.toJSONString());
+    }
+
+    @Subscriber(tag = "test https")
+    public void testHttps(HttpMethod method) {
+        Logger.json(method.toJSONString());
     }
 
     @Override
