@@ -82,7 +82,7 @@ public abstract class BaseApplication extends Application {
         mImageProvider.initialize(getApplicationContext());
 
         if (mOkHttpClient == null)
-            initSSLParams(null);
+            initSSLParams(null, null, null);
     }
 
     /**
@@ -97,7 +97,6 @@ public abstract class BaseApplication extends Application {
      * @return ConfigInfo 配置信息
      * @Title : getConfigInfo
      * @Description : 获取配置信息
-     * @params
      */
     public ConfigInfo getConfigInfo() {
         if (null == mConfigInfo) {
@@ -160,8 +159,8 @@ public abstract class BaseApplication extends Application {
         return uniqueId;
     }
 
-    protected void initSSLParams(InputStream[] certificates) {
-        SSLParamsUtils.getSslSocketFactory(certificates, null, null);
+    protected void initSSLParams(InputStream[] certificates, InputStream bksFile, String password) {
+        SSLParamsUtils.getSslSocketFactory(certificates, bksFile, password);
         if (mCookieJarl == null) {
             mCookieJarl = new CookieJarImpl(new PersistentCookieStore(getApplicationContext()));
         }

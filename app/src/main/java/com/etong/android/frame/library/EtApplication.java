@@ -6,11 +6,11 @@ import java.io.IOException;
 import java.io.InputStream;
 
 /**
- * Created by Administrator on 2016/7/19.
+ * Created by zhouxiqing on 2016/7/19.
  */
 
 public class EtApplication extends BaseApplication {
-    public void onCreate(){
+    public void onCreate() {
         setDebugMode(true);
         super.onCreate();
         InputStream certificates[] = new InputStream[1];
@@ -19,6 +19,6 @@ public class EtApplication extends BaseApplication {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        initSSLParams(certificates);
+        initSSLParams(certificates, null, null);
     }
 }
