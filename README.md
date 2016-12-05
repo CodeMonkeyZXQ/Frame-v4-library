@@ -327,4 +327,18 @@ AppUpdateProvider.getInstance().getUpdateInfo(url,
 
 			}
 		});
+
+```
+
+### 9、当要使用https访问网络时，请在Application类中调用initSSLParams(InputStream[] certificates)方法
+```java
+		//这里将证书放在了assets文件夹中，也可以是其他你可以访问到的目录
+		//示例用的是12306.cn的证书
+        InputStream certificates[] = new InputStream[1];
+        try {
+            certificates[0] = this.getAssets().open("12306.cer");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        initSSLParams(certificates);
 ```
