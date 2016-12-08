@@ -1,4 +1,4 @@
-# Android开发框架Frame-v4-library
+﻿# Android开发框架Frame-v4-library
 
 ## 一、在你的项目中导入框架的aar包
 ### 不知道导入的请移步http://jingyan.baidu.com/article/2a13832890d08f074a134ff0.html
@@ -38,10 +38,10 @@ android {
 
     signingConfigs {
         release {
-            keyAlias "dashenggouche"//签名的别名
-            keyPassword "etong123456"//密码
-            storeFile file('E:/Etongzuche/trunk/app/android/frame-v2/APK/dashenggouche.keystore')//签名文件的路径
-            storePassword "etong123456"//签名密码
+//            keyAlias "******"//签名的别名
+//            keyPassword "*******"//密码
+//            storeFile file('*******')//签名文件的路径
+//            storePassword "*******"//签名密码
 //            storeType ""//类型
         }
     }
