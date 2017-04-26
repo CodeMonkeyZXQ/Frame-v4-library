@@ -6,7 +6,7 @@ android {
 
     defaultConfig {
         applicationId "com.etong.android.frame.library"
-        minSdkVersion 17
+        minSdkVersion 13
         targetSdkVersion 23
         versionCode 1
         versionName "1.0"
@@ -23,7 +23,7 @@ android {
                 JPUSH_CHANNEL: "developer-default", //JPush.暂时填写默认值即可.
 
                 PGYER_APPID  : "701e5d51de0a931dd3f19abc7f168f3d",//蒲公英appkey
-
+                TD_APP_ID : "940D07FCA9D3404B9816421EB5D37292",//talkingData appkey
                 WECHAT_APPID : "00000000000000000000000000000000000000000",//微信分享及支付appkey
         ]
 
@@ -42,25 +42,15 @@ android {
     buildTypes {
         debug {
             manifestPlaceholders = [
-//                    JPUSH_PKGNAME: "com.etong.android.frame.library",//JPush上注册的包名
-//                    JPUSH_APPKEY : "809e7c2add6f66268b11440a", //JPush上注册的包名对应的appkey.
-//                    JPUSH_CHANNEL: "developer-default", //JPush.暂时填写默认值即可.
-//
-//                    PGYER_APPID  : "701e5d51de0a931dd3f19abc7f168f3d",//蒲公英appkey
                     WECHAT_APPID : "00000000000000000000000000000000000000000",//微信分享及支付appkey
             ]
         }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            signingConfig signingConfigs.release
+//            signingConfig signingConfigs.release
 
             manifestPlaceholders = [
-//                    JPUSH_PKGNAME: "com.etong.android.frame.library",//JPush上注册的包名
-//                    JPUSH_APPKEY : "809e7c2add6f66268b11440a", //JPush上注册的包名对应的appkey.
-//                    JPUSH_CHANNEL: "developer-default", //JPush.暂时填写默认值即可.
-//
-//                    PGYER_APPID  : "701e5d51de0a931dd3f19abc7f168f3d",//蒲公英appkey
                     WECHAT_APPID : "00000000000000000000000000000000000000000",//微信分享及支付appkey
             ]
         }
@@ -70,18 +60,6 @@ android {
         etong {
             manifestPlaceholders = [CHANNEL_VALUE: "etong"]
         }
-//        qh360 {
-//            manifestPlaceholders = [CHANNEL_VALUE: "qh360"]
-//        }
-//        baidu {
-//            manifestPlaceholders = [CHANNEL_VALUE: "baidu"]
-//        }
-//        anzhi {
-//            manifestPlaceholders = [CHANNEL_VALUE: "anzhi"]
-//        }
-//        tencent {
-//            manifestPlaceholders = [CHANNEL_VALUE: "tencent"]
-//        }
     }
 }
 
@@ -93,19 +71,30 @@ repositories {
         dirs 'libs'
     }
 }
-
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     //    compile(name:'frame-v4-library', ext:'aar')
     compile project(':frame-v4-library-aar')
     compile 'com.android.support:appcompat-v7:24.+'
     compile 'com.squareup.okhttp3:okhttp:3.3.1'
-    compile 'cn.jiguang:jpush:2.1.9'
+    compile 'cn.jiguang.sdk:jpush:3.0.0'
+    //推送
+    compile 'cn.jiguang.sdk:janalytics:1.0.0'
+    // 统计
+    compile 'cn.jiguang.sdk:jcore:1.0.0'
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:design:24.2.0'
     compile 'io.reactivex:rxjava:1.2.1'
     compile 'io.reactivex:rxandroid:1.2.1'
-
     compile 'com.android.support:support-v13:24.+'
     compile 'me.imid.swipebacklayout.lib:library:1.0.0'
+    //友盟统计
+    compile 'com.umeng.analytics:analytics:latest.integration'
+
+    //图片压缩，需要使用rxjava
+    compile 'top.zibin:Luban:1.0.9'
+    //    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5'
+    //    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
+    //    testCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
 }
+

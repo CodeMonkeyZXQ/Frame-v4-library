@@ -8,15 +8,6 @@
  */
 package com.etong.android.frame.utils;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.List;
-
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Environment;
@@ -25,6 +16,15 @@ import android.os.storage.StorageManager;
 import android.text.TextUtils;
 
 import com.etong.android.frame.utils.logger.Logger;
+
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.List;
 
 public class StoragePathUtils {
 	private static List<Storages> jsonStorage = null;
@@ -52,7 +52,7 @@ public class StoragePathUtils {
 		if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.GINGERBREAD) {
 			pathsList.addAll(getSDCardPath());
 		} else {
-			StorageManager storageManager = (StorageManager) cxt
+			StorageManager storageManager = (StorageManager) cxt.getApplicationContext()
 					.getSystemService(Context.STORAGE_SERVICE);
 			try {
 				Method method = StorageManager.class

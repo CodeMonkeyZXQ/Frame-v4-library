@@ -3,7 +3,6 @@ package com.etong.android.frame.utils;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.net.ConnectivityManager;
-import android.net.Network;
 import android.net.NetworkInfo;
 import android.text.TextUtils;
 
@@ -52,7 +51,7 @@ public class UploadImageProvider {
      * 数据异常
      */
     public static final int DATA_ERROR = 0x1100;
-    private static String IMAGE_UPDATE_ADDR = "http://113.247.237.98:10002/upload";
+    private static String IMAGE_UPDATE_ADDR = "http://222.247.51.114:10002/upload";
     private OkHttpClient client = null;
     private Context mContext = null;
     private static Callback callback = null;

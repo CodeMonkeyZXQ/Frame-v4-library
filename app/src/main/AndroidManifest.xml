@@ -3,6 +3,11 @@
     package="com.etong.android.frame.library">
 
     <uses-permission android:name="android.permission.CAMERA" />
+<!--友盟统计-->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
 
     <application
         android:name=".EtApplication"
@@ -26,6 +31,20 @@
             </intent-filter>
         </activity>
 
+        <receiver android:name="com.tendcloud.tenddata.TalkingDataAppMessageReceiver" android:enabled="true">
+            <intent-filter>
+                <!-- 必须添加 -->
+                <action android:name="com.talkingdata.notification.click"></action>
+                <action android:name="com.talkingdata.message.click"></action>
+            </intent-filter>
+            <intent-filter>
+                <!-- 如果使用极光推送，必须添加 -->
+                <action android:name="cn.jpush.android.intent.REGISTRATION"></action>
+                <action android:name="cn.jpush.android.intent.MESSAGE_RECEIVED"></action>
+                <category android:name="com.etong.android.frame.library"></category>
+            </intent-filter>
+        </receiver>
+
         <!-- User defined.  For test only  用户自定义的广播接收器 -->
         <receiver
             android:name="com.etong.android.frame.library.JPushReceiver"
@@ -48,6 +67,9 @@
                 <category android:name="com.etong.android.frame.library" />
             </intent-filter>
         </receiver>
+
+        <meta-data android:value="58bcf846717c196f62001db9" android:name="UMENG_APPKEY"/>
+        <meta-data android:value="ETONG" android:name="UMENG_CHANNEL"/>
     </application>
 
 </manifest>

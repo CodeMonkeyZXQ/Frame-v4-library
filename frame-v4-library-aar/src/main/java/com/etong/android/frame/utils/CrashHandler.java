@@ -1,17 +1,5 @@
 package com.etong.android.frame.utils;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.FilenameFilter;
-import java.io.PrintWriter;
-import java.io.StringWriter;
-import java.io.Writer;
-import java.lang.Thread.UncaughtExceptionHandler;
-import java.lang.reflect.Field;
-import java.util.Arrays;
-import java.util.Properties;
-import java.util.TreeSet;
-
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -23,6 +11,19 @@ import android.util.Log;
 import com.etong.android.frame.BaseApplication;
 import com.etong.android.frame.utils.logger.Logger;
 import com.pgyersdk.crash.PgyCrashManager;
+import com.tendcloud.tenddata.TCAgent;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.FilenameFilter;
+import java.io.PrintWriter;
+import java.io.StringWriter;
+import java.io.Writer;
+import java.lang.Thread.UncaughtExceptionHandler;
+import java.lang.reflect.Field;
+import java.util.Arrays;
+import java.util.Properties;
+import java.util.TreeSet;
 
 /**
  * 处理应用程序中出现的异常
@@ -102,8 +103,9 @@ public class CrashHandler implements UncaughtExceptionHandler {
 		if (ex == null) {
 			return true;
 		}
-		//异常上报蒲公英
+		//异常上报蒲公英及TalkingData
 		PgyCrashManager.reportCaughtException(mContext, (Exception) ex);
+		TCAgent.onError(mContext, ex);
 		// final String msg = ex.getLocalizedMessage();
 		// 使用Toast来显示异常信息
 		new Thread() {

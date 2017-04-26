@@ -86,15 +86,18 @@ public class HttpPublisher extends Publisher {
                 data.put("errCode", HTTP_ERROR);
                 data.put("errName", "Http访问异常,返回数据异常");
                 e.printStackTrace();
-            }
-            catch (JSONException e1){
+            }catch (JSONException e1){
                 data = new JSONObject();
                 data.put("data", str);
                 data.put("errCode", HTTP_ERROR);
                 data.put("errName", "Http访问异常,返回数据异常");
                 e1.printStackTrace();
             }
-
+            if(data==null){
+                data = new JSONObject();
+                data.put("errCode", HTTP_ERROR);
+                data.put("errName", "Http访问异常,返回数据异常");
+            }
             EventBus.getDefault().post(method.put(data), eventTag);
             if(method.getParam()!=null){
                 Logger.d(method.getParam().toString());

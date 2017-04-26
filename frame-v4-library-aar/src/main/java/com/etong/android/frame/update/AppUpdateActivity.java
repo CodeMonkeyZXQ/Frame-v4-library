@@ -68,7 +68,6 @@ public class AppUpdateActivity extends BaseSubscriberActivity {
         this.setContentView(R.layout.activity_app_update);
         registerSticky();
         initViews();
-        this.action = AppUpdateProvider.action;
     }
 
     public void initViews() {
@@ -100,19 +99,14 @@ public class AppUpdateActivity extends BaseSubscriberActivity {
      */
     @Subscriber(tag = AppUpdateProvider.TAG)
     public void initData(AppUpdate data) {
+        this.action = data.getAction();
+        this.info = data;
         client = new OkHttpClient();
         // 初始化文件路径
         FilePath = StoragePathUtils.getStoragePaths(this)[0] + File.separator
                 + "Download" + File.separator;
-        info = data;
-        mEventBus.removeStickyEvent(AppUpdate.class);
+        mEventBus.removeStickyEvent(AppUpdate.class, AppUpdateProvider.TAG);
 
-        // 没有升级信息时默认进入app
-        if (info == null) {
-            action.fail(AppUpdateProvider.ERR_NULL, "更新内容为空");
-            this.finish();
-            return;
-        }
 
         // 本地apk包无法使用或差分合成so无法加载时设为完全更新
         if (TextUtils.isEmpty(info.getOldApkSource()) || !PatchUtils.canPatch()) {

@@ -2,6 +2,7 @@ package com.etong.android.frame.utils;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.support.annotation.IntDef;
 import android.text.TextUtils;
 import android.view.InflateException;
 import android.view.LayoutInflater;
@@ -9,6 +10,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 
 /**
  * Created by zhouxiqing on 2016/11/7.
@@ -107,6 +111,13 @@ public class CustomToast {
         mToast.setView(layout);
     }
 
+    /** @hide */
+    @IntDef({Toast.LENGTH_SHORT, Toast.LENGTH_LONG})
+    @Retention(RetentionPolicy.SOURCE)
+    public @interface Duration {
+
+    }
+
     /**
      * @param context  The context to use.  Usually your {@link android.app.Application}
      *                 or {@link android.app.Activity} object.
@@ -114,7 +125,7 @@ public class CustomToast {
      * @param duration How long to display the message.  Either {@link Toast#LENGTH_SHORT} or
      *                 {@link Toast#LENGTH_LONG}
      */
-    public static void showToast(Context context, String text, int duration) {
+    public static void showToast(Context context, String text, @Duration int duration) {
         if (TextUtils.isEmpty(text)) {
             return;
         }

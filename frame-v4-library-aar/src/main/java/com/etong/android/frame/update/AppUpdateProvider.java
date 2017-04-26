@@ -56,7 +56,7 @@ public class AppUpdateProvider {
     /**
      * 更新回调接口
      */
-    public static AppUpdateResultAction action;
+    public AppUpdateResultAction action;
     @Deprecated
     private static Boolean CAN_START = false;
     /**
@@ -156,9 +156,9 @@ public class AppUpdateProvider {
      */
     public void getUpdateInfo(String url, AppUpdateResultAction action) {
         if (action != null) {
-            AppUpdateProvider.action = action;
+            this.action = action;
         } else {
-            AppUpdateProvider.action = new AppUpdateResultAction() {
+            this.action = new AppUpdateResultAction() {
 
                 @Override
                 public void noUpdate() {
@@ -259,6 +259,7 @@ public class AppUpdateProvider {
                         && !TextUtils.isEmpty(info.getUrl())
                         && strbuffer != null) {
                     if (versionCode < info.getVersionCode()) {// 当前版本小于更新版本
+                        info.setAction(action);
                         EventBus.getDefault().postSticky(info, TAG);
                         ActivitySkipUtil.skipActivity(ActivityStackManager
                                         .create().topActivity(),

@@ -16,6 +16,7 @@ import com.etong.android.frame.utils.ActivityStackManager;
 import com.etong.android.frame.utils.CustomToast;
 import com.pgyersdk.feedback.PgyFeedbackShakeManager;
 import com.pgyersdk.update.PgyUpdateManager;
+import com.tendcloud.tenddata.TCAgent;
 
 import org.simple.eventbus.EventBus;
 
@@ -234,6 +235,7 @@ abstract public class BaseSubscriberActivity extends AppCompatActivity {
             //蒲公英-摇一摇反馈功能注销
             PgyFeedbackShakeManager.unregister();
         }
+        TCAgent.onPageEnd(this, this.getClass().getSimpleName());
     }
 
     @Override
@@ -250,6 +252,7 @@ abstract public class BaseSubscriberActivity extends AppCompatActivity {
                 BaseApplication.pgyUpdate = false;
             }
         }
+        TCAgent.onPageStart(this, this.getClass().getSimpleName());
     }
 
     @Override

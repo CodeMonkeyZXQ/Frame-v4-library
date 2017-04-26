@@ -20,6 +20,7 @@ import com.etong.android.frame.utils.UploadImageProvider;
 import com.etong.android.frame.utils.logger.LogLevel;
 import com.etong.android.frame.utils.logger.Logger;
 import com.pgyersdk.crash.PgyCrashManager;
+import com.tendcloud.tenddata.TCAgent;
 
 import java.io.InputStream;
 import java.util.UUID;
@@ -73,6 +74,11 @@ public abstract class BaseApplication extends Application {
 
         //注册蒲公英异常上报功能
         PgyCrashManager.register(this);
+
+        //talkingData
+        TCAgent.LOG_ON=isDebug;
+        TCAgent.init(this);
+        TCAgent.setReportUncaughtExceptions(true);
 
         // 初始化缓存
         mSharedPublisher = SharedPublisher.getInstance();

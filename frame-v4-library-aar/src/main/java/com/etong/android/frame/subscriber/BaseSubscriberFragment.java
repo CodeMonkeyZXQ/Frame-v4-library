@@ -12,6 +12,7 @@ import com.etong.android.frame.BaseApplication;
 import com.etong.android.frame.common.LoadingDialog;
 import com.etong.android.frame.permissions.PermissionsManager;
 import com.etong.android.frame.utils.CustomToast;
+import com.tendcloud.tenddata.TCAgent;
 
 import org.simple.eventbus.EventBus;
 
@@ -77,6 +78,18 @@ public abstract class BaseSubscriberFragment extends Fragment {
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
+	}
+
+	@Override
+	public void onResume() {
+		super.onResume();
+		TCAgent.onPageStart(this.getContext(), this.getClass().getSimpleName());
+	}
+
+	@Override
+	public void onPause() {
+		super.onPause();
+		TCAgent.onPageEnd(this.getContext(), this.getClass().getSimpleName());
 	}
 
 	@Override
