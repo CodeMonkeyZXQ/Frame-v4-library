@@ -8,6 +8,7 @@ import android.text.TextUtils;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONException;
 import com.alibaba.fastjson.JSONObject;
+import com.etong.android.frame.common.ErrCodeMap;
 import com.etong.android.frame.event.CommonEvent;
 import com.etong.android.frame.utils.logger.Logger;
 
@@ -46,6 +47,7 @@ public class HttpPublisher extends Publisher {
     private OkHttpClient client = null;
     private Map<String, String> mHttpToken = new HashMap<>();
     private static final String DEFAULT_TOKEN_NAME = "accessToken";
+    private ErrCodeMap mTokenError;
 
     private class JsonObjectCallback implements Callback {
         private HttpMethod method;
@@ -99,6 +101,37 @@ public class HttpPublisher extends Publisher {
                 data.put("errName", "Http访问异常,返回数据异常");
             }
             EventBus.getDefault().post(method.put(data), eventTag);
+            //token验证
+            String code = data.getString("code");
+            if(mTokenError == null){
+                mTokenError = new ErrCodeMap();
+            }
+            // 用户未登录
+            if (mTokenError.get("USER_NO_LOGIN").equals(code)) {
+                getEventBus().post(method.put(data),
+                        mTokenError.get("USER_NO_LOGIN"));
+            }
+            // token过期,重新登录!
+            if (mTokenError.get("USER_TOKEN_EXPIRED").equals(code)) {
+                getEventBus().post(method.put(data),
+                        mTokenError.get("USER_TOKEN_EXPIRED"));
+            }
+            // token刷新,重新登录!
+            if (mTokenError.get("USER_TOKEN_REFRESH").equals(code)) {
+                getEventBus().post(method.put(data),
+                        mTokenError.get("USER_TOKEN_REFRESH"));
+            }
+            // token为空,重新登录!
+            if (mTokenError.get("USER_TOKEN_EMPTY").equals(code)) {
+                getEventBus().post(method.put(data),
+                        mTokenError.get("USER_TOKEN_EMPTY"));
+            }
+            // token不存在,重新登录!
+            if (mTokenError.get("USER_TOKEN_NONE").equals(code)) {
+                getEventBus().post(method.put(data),
+                        mTokenError.get("USER_TOKEN_NONE"));
+            }
+            //打印日志
             if(method.getParam()!=null){
                 Logger.d(method.getParam().toString());
             }
@@ -136,6 +169,13 @@ public class HttpPublisher extends Publisher {
         if (null != name && null != token && !token.isEmpty() && !name.isEmpty()) {
             mHttpToken.put(name, token);
         }
+    }
+
+    public void serErrCodeMap(ErrCodeMap errCodeMap) {
+        if(errCodeMap == null)
+            mTokenError = new ErrCodeMap();
+        else
+            mTokenError = errCodeMap;
     }
 
     public boolean checkNetworkState() {

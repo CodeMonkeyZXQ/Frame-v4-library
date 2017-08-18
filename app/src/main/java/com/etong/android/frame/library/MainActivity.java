@@ -11,22 +11,25 @@ import com.etong.android.frame.library.search.SubscriberActivity;
 import com.etong.android.frame.publisher.HttpMethod;
 import com.etong.android.frame.publisher.HttpPublisher;
 import com.etong.android.frame.update.AppUpdateProvider;
+import com.etong.android.frame.update.AppUpdateResultAction;
 import com.etong.android.frame.utils.CustomToast;
-import com.etong.android.frame.utils.PhotoUtils;
 import com.etong.android.frame.utils.logger.Logger;
+import com.tendcloud.tenddata.TCAgent;
 import com.umeng.analytics.MobclickAgent;
 
 import org.simple.eventbus.Subscriber;
 
 import java.io.File;
+import java.util.HashMap;
 
+import cn.jiguang.analytics.android.api.CountEvent;
 import cn.jiguang.analytics.android.api.JAnalyticsInterface;
 import cn.jpush.android.api.JPushInterface;
 import me.imid.swipebacklayout.lib.SwipeBackLayout;
 import top.zibin.luban.Luban;
 import top.zibin.luban.OnCompressListener;
 
-public class MainActivity extends SubscriberActivity {
+public class MainActivity extends SubscriberActivity{
     private int[] mBgColors;
 
     private static int mBgIndex = 0;
@@ -43,35 +46,35 @@ public class MainActivity extends SubscriberActivity {
 
         mKeyTrackingMode = "key_tracking_mode";
         mSwipeBackLayout = getSwipeBackLayout();
-        AppUpdateProvider.getInstance().initialize(HttpPublisher.getInstance(), "1003");
+        AppUpdateProvider.getInstance().initialize(HttpPublisher.getInstance(), "1014");
 
         this.findViewById(R.id.hello, TextView.class).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                AppUpdateProvider.getInstance().getUpdateInfo("http://payment.suiyizuche.com:8080/version/app/1003", new AppUpdateResultAction() {
-//                    @Override
-//                    public void noUpdate() {
-//                        toastMsg("暂无更新");
-//                    }
-//
-//                    @Override
-//                    public void fail(final int errCode, final String errStr) {
-//                        TCAgent.onEvent(MainActivity.this, "应用更新", "未更新", new HashMap<String, String>() {{
-//                            put("errCode", errCode + "");
-//                            put("errStr", errStr);
-//                        }});
-//                        switch (errCode) {
-//                            case AppUpdateProvider.ERR_LATER:// 稍后更新
-//                                JAnalyticsInterface.onEvent(MainActivity.this, new CountEvent("更新取消"));
-//                                MobclickAgent.onEvent(MainActivity.this, "更新取消");
-//                            case AppUpdateProvider.ERR_NULL:// 返回更新内容为空
-//                            case AppUpdateProvider.ERR_NETWORK:// 网络异常
-//                            case AppUpdateProvider.ERR_CANCLE:// 取消更新
-//                                toastMsg(errStr);
-//                                break;
-//                        }
-//                    }
-//                });
+                AppUpdateProvider.getInstance().getUpdateInfo("http://payment.suiyizuche.com:8080/version/app/1014", new AppUpdateResultAction() {
+                    @Override
+                    public void noUpdate() {
+                        toastMsg("暂无更新");
+                    }
+
+                    @Override
+                    public void fail(final int errCode, final String errStr) {
+                        TCAgent.onEvent(MainActivity.this, "应用更新", "未更新", new HashMap<String, String>() {{
+                            put("errCode", errCode + "");
+                            put("errStr", errStr);
+                        }});
+                        switch (errCode) {
+                            case AppUpdateProvider.ERR_LATER:// 稍后更新
+                                JAnalyticsInterface.onEvent(MainActivity.this, new CountEvent("更新取消"));
+                                MobclickAgent.onEvent(MainActivity.this, "更新取消");
+                            case AppUpdateProvider.ERR_NULL:// 返回更新内容为空
+                            case AppUpdateProvider.ERR_NETWORK:// 网络异常
+                            case AppUpdateProvider.ERR_CANCLE:// 取消更新
+                                toastMsg(errStr);
+                                break;
+                        }
+                    }
+                });
  /*                if(i%2==0){
                     CustomToast.setLayoutRes(MainActivity.this,R.layout.layout_loading_view);
                 }else
@@ -108,7 +111,7 @@ public class MainActivity extends SubscriberActivity {
                         i=0;
                 }
                 mSwipeBackLayout.setEdgeTrackingEnabled(edgeFlag);*/
-                PhotoUtils.startPhotoUtils(MainActivity.this, "photo", false);
+//                PhotoUtils.startPhotoUtils(MainActivity.this, "photo", false);
             }
         });
 

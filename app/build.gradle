@@ -2,12 +2,12 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 24
-    buildToolsVersion "24"
+    buildToolsVersion '25.0.0'
 
     defaultConfig {
         applicationId "com.etong.android.frame.library"
-        minSdkVersion 13
-        targetSdkVersion 23
+        minSdkVersion 14
+        targetSdkVersion 21
         versionCode 1
         versionName "1.0"
         multiDexEnabled true
@@ -73,7 +73,7 @@ repositories {
 }
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    //    compile(name:'frame-v4-library', ext:'aar')
+//    compile(name:'frame-v4-library', ext:'aar')
     compile project(':frame-v4-library-aar')
     compile 'com.android.support:appcompat-v7:24.+'
     compile 'com.squareup.okhttp3:okhttp:3.3.1'
