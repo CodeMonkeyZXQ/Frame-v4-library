@@ -1,6 +1,6 @@
 package com.etong.android.frame;
 
-import android.app.Application;
+import android.support.multidex.MultiDexApplication;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.content.pm.PackageInfo;
@@ -31,7 +31,7 @@ import okhttp3.OkHttpClient;
 
 import static com.etong.android.frame.okhttp.SSLParamsUtils.sslParams;
 
-public abstract class BaseApplication extends Application {
+public abstract class BaseApplication extends MultiDexApplication {
     protected static final String TAG = "EtongApplication";
     protected CrashHandler mCrashHandler = CrashHandler.getInstance();
     protected static BaseApplication application;
@@ -171,8 +171,8 @@ public abstract class BaseApplication extends Application {
             mCookieJarl = new CookieJarImpl(new PersistentCookieStore(getApplicationContext()));
         }
         mOkHttpClient = new OkHttpClient.Builder()
-                .connectTimeout(20000L, TimeUnit.MILLISECONDS)
-                .readTimeout(20000L, TimeUnit.MILLISECONDS)
+                .connectTimeout(10000L, TimeUnit.MILLISECONDS)
+                .readTimeout(10000L, TimeUnit.MILLISECONDS)
                 .cookieJar(mCookieJarl)
 //				.hostnameVerifier(new HostnameVerifier()
 //				{
