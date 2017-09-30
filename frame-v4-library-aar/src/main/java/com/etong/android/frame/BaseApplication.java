@@ -171,8 +171,8 @@ public abstract class BaseApplication extends MultiDexApplication {
             mCookieJarl = new CookieJarImpl(new PersistentCookieStore(getApplicationContext()));
         }
         mOkHttpClient = new OkHttpClient.Builder()
-                .connectTimeout(10000L, TimeUnit.MILLISECONDS)
-                .readTimeout(10000L, TimeUnit.MILLISECONDS)
+                .connectTimeout(15000L, TimeUnit.MILLISECONDS)
+                .readTimeout(15000L, TimeUnit.MILLISECONDS)
                 .cookieJar(mCookieJarl)
 //				.hostnameVerifier(new HostnameVerifier()
 //				{

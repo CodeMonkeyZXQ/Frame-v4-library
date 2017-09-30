@@ -70,10 +70,13 @@ public class MainActivity extends SubscriberActivity{
                             case AppUpdateProvider.ERR_NULL:// 返回更新内容为空
                             case AppUpdateProvider.ERR_NETWORK:// 网络异常
                             case AppUpdateProvider.ERR_CANCLE:// 取消更新
-                                toastMsg(errStr);
                                 break;
                         }
                     }
+
+                    @Override
+                    public void haveUpdate() {
+                                            }
                 });
  /*                if(i%2==0){
                     CustomToast.setLayoutRes(MainActivity.this,R.layout.layout_loading_view);

@@ -169,6 +169,11 @@ public class AppUpdateProvider {
                 public void fail(int errCode, String errStr) {
                     CAN_START = true;
                 }
+
+                @Override
+                public void haveUpdate() {
+                    CAN_START = false;
+                }
             };
         }
         UpDateTask mTask = new UpDateTask();
@@ -259,6 +264,7 @@ public class AppUpdateProvider {
                         && !TextUtils.isEmpty(info.getUrl())
                         && strbuffer != null) {
                     if (versionCode < info.getVersionCode()) {// 当前版本小于更新版本
+                        action.haveUpdate();
                         info.setAction(action);
                         EventBus.getDefault().postSticky(info, TAG);
                         ActivitySkipUtil.skipActivity(ActivityStackManager
