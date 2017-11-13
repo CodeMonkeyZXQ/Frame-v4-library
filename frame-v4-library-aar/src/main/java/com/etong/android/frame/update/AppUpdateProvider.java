@@ -230,6 +230,10 @@ public class AppUpdateProvider {
         // onPostExecute方法用于在执行完后台任务后更新UI,显示结果
         @Override
         protected void onPostExecute(Void arg0) {
+            if(method==null||method.data()==null){
+                action.fail(ERR_NETWORK, "数据异常");
+                return;
+            }
             int errCode = method.data().getIntValue("errCode");
             if (errCode == HttpPublisher.NETWORK_ERROR) {
                 action.fail(ERR_NETWORK, "访问网络失败");
