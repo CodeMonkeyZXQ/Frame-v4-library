@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/Frame.iml" filepath="$PROJECT_DIR$/Frame.iml" />
       <module fileurl="file://$PROJECT_DIR$/Frame-v4-library.iml" filepath="$PROJECT_DIR$/Frame-v4-library.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/frame-v4-library-aar/frame-v4-library-aar.iml" filepath="$PROJECT_DIR$/frame-v4-library-aar/frame-v4-library-aar.iml" />

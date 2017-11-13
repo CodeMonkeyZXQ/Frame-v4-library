@@ -130,7 +130,9 @@ public class CustomToast {
             return;
         }
         if (layout == null || textView == null) {
-            setLayoutRes(context, Resources.getSystem().getIdentifier("transient_notification", "layout", "android"));
+
+            Context appContext = context.getApplicationContext();
+            setLayoutRes(appContext, Resources.getSystem().getIdentifier("transient_notification", "layout", "android"));
         }
         if (duration != LENGTH_SHORT && duration != LENGTH_LONG) {
             duration = LENGTH_SHORT;
@@ -149,7 +151,8 @@ public class CustomToast {
      * @throws Resources.NotFoundException if the resource can't be found.
      */
     public static void showToast(Context context, int resId, int duration) {
-        showToast(context, context.getResources().getString(resId), duration);
+        Context appContext = context.getApplicationContext();
+        showToast(appContext, appContext.getResources().getString(resId), duration);
     }
 
     /**

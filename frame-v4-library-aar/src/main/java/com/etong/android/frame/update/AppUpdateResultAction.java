@@ -32,4 +32,6 @@ public abstract class AppUpdateResultAction {
 	 * @return void 返回类型
 	 */
 	public abstract void fail(int errCode, String errStr);
+
+    public abstract void haveUpdate();
 }
