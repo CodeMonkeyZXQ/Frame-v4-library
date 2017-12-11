@@ -85,14 +85,6 @@
         <!--蒲公英-摇一摇用户反馈-->
         <activity android:name="com.pgyersdk.activity.FeedbackActivity" />
         <activity
-            android:name="com.etong.android.frame.camera.CameraActivity"
-            android:configChanges="keyboardHidden|orientation"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name="com.etong.android.frame.camera.AlbumActivity"
-            android:configChanges="keyboardHidden|orientation"
-            android:screenOrientation="portrait" />
-        <activity
             android:name="com.etong.android.frame.utils.PhotoUtils"
             android:configChanges="keyboardHidden|orientation"
             android:screenOrientation="portrait"

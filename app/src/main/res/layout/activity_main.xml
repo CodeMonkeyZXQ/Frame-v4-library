@@ -20,6 +20,19 @@
         android:layout_height="wrap_content"
         android:text="Hello World!" />
 
+    <ImageView
+        android:id="@+id/iv_small"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <ImageView
+        android:id="@+id/iv_thumb"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <ImageView
+        android:id="@+id/iv_pic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
     <FrameLayout
         android:id="@+id/frame_layout"
         android:layout_width="match_parent"

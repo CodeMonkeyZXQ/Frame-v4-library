@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSONObject;
@@ -11,25 +12,21 @@ import com.etong.android.frame.library.search.SubscriberActivity;
 import com.etong.android.frame.publisher.HttpMethod;
 import com.etong.android.frame.publisher.HttpPublisher;
 import com.etong.android.frame.update.AppUpdateProvider;
-import com.etong.android.frame.update.AppUpdateResultAction;
 import com.etong.android.frame.utils.CustomToast;
+import com.etong.android.frame.utils.ImageProvider;
+import com.etong.android.frame.utils.PhotoUtils;
+import com.etong.android.frame.utils.UploadImageInfo;
+import com.etong.android.frame.utils.UploadImageProvider;
 import com.etong.android.frame.utils.logger.Logger;
-import com.tendcloud.tenddata.TCAgent;
 import com.umeng.analytics.MobclickAgent;
 
 import org.simple.eventbus.Subscriber;
 
-import java.io.File;
-import java.util.HashMap;
-
-import cn.jiguang.analytics.android.api.CountEvent;
 import cn.jiguang.analytics.android.api.JAnalyticsInterface;
 import cn.jpush.android.api.JPushInterface;
 import me.imid.swipebacklayout.lib.SwipeBackLayout;
-import top.zibin.luban.Luban;
-import top.zibin.luban.OnCompressListener;
 
-public class MainActivity extends SubscriberActivity{
+public class MainActivity extends SubscriberActivity {
     private int[] mBgColors;
 
     private static int mBgIndex = 0;
@@ -38,6 +35,8 @@ public class MainActivity extends SubscriberActivity{
 
     private SwipeBackLayout mSwipeBackLayout;
     int i = 0;
+
+    private ImageView mIvSmall,mIvThumb,mIvPic;
 
     @Override
     protected void onInit(@Nullable Bundle savedInstanceState) {
@@ -48,10 +47,14 @@ public class MainActivity extends SubscriberActivity{
         mSwipeBackLayout = getSwipeBackLayout();
         AppUpdateProvider.getInstance().initialize(HttpPublisher.getInstance(), "1014");
 
+        mIvSmall = this.findViewById(R.id.iv_small,ImageView.class);
+        mIvThumb = this.findViewById(R.id.iv_thumb,ImageView.class);
+        mIvPic = this.findViewById(R.id.iv_pic,ImageView.class);
+
         this.findViewById(R.id.hello, TextView.class).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AppUpdateProvider.getInstance().getUpdateInfo("http://payment.suiyizuche.com:8080/version/app/1014", new AppUpdateResultAction() {
+               /* AppUpdateProvider.getInstance().getUpdateInfo("http://payment.suiyizuche.com:8080/version/app/1014", new AppUpdateResultAction() {
                     @Override
                     public void noUpdate() {
                         toastMsg("暂无更新");
@@ -76,8 +79,8 @@ public class MainActivity extends SubscriberActivity{
 
                     @Override
                     public void haveUpdate() {
-                                            }
-                });
+                    }
+                });*/
  /*                if(i%2==0){
                     CustomToast.setLayoutRes(MainActivity.this,R.layout.layout_loading_view);
                 }else
@@ -115,23 +118,25 @@ public class MainActivity extends SubscriberActivity{
                 }
                 mSwipeBackLayout.setEdgeTrackingEnabled(edgeFlag);*/
 //                PhotoUtils.startPhotoUtils(MainActivity.this, "photo", false);
+        PhotoUtils.startPhotoUtils(MainActivity.this, "photo", false);
             }
         });
-
-
-        HttpPublisher.getInstance().sendRequest(new HttpMethod("https://kyfw.12306.cn/otn/",null),"test https");
+//        HttpPublisher.getInstance().sendRequest(new HttpMethod("https://kyfw.12306.cn/otn/",null),"test https");
     }
 
     @Subscriber(tag = "photo")
     public void onPhoto(Bitmap map) {
-//        UploadImageProvider.getInstance().uploadImage(map, "uploadImg", "55");
+        UploadImageProvider.getInstance().setConfig("f662bae2daff11e7966f6c92bf436b62","QuikTrip","quik_trip","");
+        UploadImageProvider.getInstance().uploadImage(map, "uploadImg", "55");
 //        UploadImageProvider.getInstance().cancleByTag("uploadImg");
 //        UploadImageProvider.getInstance().uploadImage(map, "uploadImg", "55");
     }
 
     @Subscriber(tag = "photo")
     public void onPhoto(final String img) {
-        final File oldFile = new File(img);
+        UploadImageProvider.getInstance().setConfig("f662bae2daff11e7966f6c92bf436b62","QuikTrip","quik_trip","");
+        UploadImageProvider.getInstance().uploadImage(img, "uploadImg", "55");
+        /*final File oldFile = new File(img);
         Luban.get(this)
                 .load(oldFile)                     //传人要压缩的图片
                 .putGear(Luban.THIRD_GEAR)      //设定压缩档次，默认三挡
@@ -140,15 +145,16 @@ public class MainActivity extends SubscriberActivity{
                     @Override
                     public void onStart() {
                         // TODO 压缩开始前调用，可以在方法内启动 loading UI
-                        loadStart("图片压缩中。。。",0);
+                        loadStart("图片压缩中。。。", 0);
                     }
+
                     @Override
                     public void onSuccess(File file) {
                         // TODO 压缩成功后调用，返回压缩后的图片文件
                         Logger.i("path", file.getAbsolutePath());
                         Logger.i("old file path:" + oldFile.getAbsolutePath() + "\n old file size:" + oldFile.length() / 1024 + "k\n"
-                                 + "new file path:" + file.getAbsolutePath() + "\n new file size:" + file.length() / 1024 + "k\n" );
-                        toastMsg("图片压缩完成"+ file.getAbsolutePath());
+                                + "new file path:" + file.getAbsolutePath() + "\n new file size:" + file.length() / 1024 + "k\n");
+                        toastMsg("图片压缩完成" + file.getAbsolutePath());
                         loadFinish();
                     }
 
@@ -157,7 +163,7 @@ public class MainActivity extends SubscriberActivity{
                         // TODO 当压缩过去出现问题时调用
                         toastMsg("压缩过程异常");
                     }
-                }).launch();
+                }).launch();*/
 //        UploadImageProvider.getInstance().uploadImage(img, "uploadImg", "66");
 //        UploadImageProvider.getInstance().cancleByTag("uploadImg");
 //        UploadImageProvider.getInstance().uploadImage(img, "uploadImg", "66");
@@ -208,6 +214,10 @@ public class MainActivity extends SubscriberActivity{
     @Subscriber(tag = "uploadImg")
     public void onPhoto(JSONObject data) {
         Logger.json(data.toJSONString());
+        UploadImageInfo info = data.getJSONArray("files").getObject(0,UploadImageInfo.class);
+        ImageProvider.getInstance().loadImage(mIvSmall,info.getUrl_small());
+        ImageProvider.getInstance().loadImage(mIvPic,info.getUrl());
+        ImageProvider.getInstance().loadImage(mIvThumb,info.getUrl_thumb());
     }
 
     @Subscriber(tag = "test https")

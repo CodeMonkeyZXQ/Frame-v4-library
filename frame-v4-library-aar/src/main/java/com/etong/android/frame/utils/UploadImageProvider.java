@@ -48,47 +48,21 @@ public class UploadImageProvider {
      */
     public static final int HTTP_ERROR = HttpPublisher.HTTP_ERROR;
     /**
-     * 数据异常
+     * 图片数据异常
      */
     public static final int DATA_ERROR = 0x1100;
-    private static String IMAGE_UPDATE_ADDR = "http://222.247.51.114:10002/upload";
+    /**
+     * 初始化配置异常
+     */
+    public static final int CONFIG_ERROR = 0x10ff;
+    private static String IMAGE_UPDATE_ADDR = "http://service.i-etong.com:55068/service/pic-upload";
     private OkHttpClient client = null;
     private Context mContext = null;
     private static Callback callback = null;
     public static int queueSize = 0;
+    private String ticket,sysid,dir,cid;
 
-    private UploadImageProvider() {
-//        callback = new Callback() {
-//            @Override
-//            public void onFailure(Call call, IOException e) {
-//                queueSize--;
-//                HashMap tag = (HashMap) call.request().tag();
-//                JSONObject data = new JSONObject();
-//                data.put("errCode", HTTP_ERROR);
-//                if (call.isCanceled()) {
-//                    data.put("errName", "Http访问被取消");
-//                } else {
-//                    data.put("errName", "Http访问异常");
-//                }
-//                data.put("id", tag.get("id"));
-//                EventBus.getDefault().post(data, tag.get("tag").toString());
-//            }
-//
-//            @Override
-//            public void onResponse(Call call, Response response) throws IOException {
-//                queueSize--;
-//                HashMap tag = (HashMap) call.request().tag();
-//                JSONObject data = JSON.parseObject(response.body().string());
-//                if (data == null) {
-//                    data = new JSONObject();
-//                    data.put("errCode", DATA_ERROR);
-//                    data.put("errName", "返回数据为空");
-//                }
-//                data.put("id", tag.get("id"));
-//                EventBus.getDefault().post(data, tag.get("tag").toString());
-//            }
-//        };
-    }
+    private UploadImageProvider() {}
 
     private static class Holder{
         private static final UploadImageProvider INSTANCE = new UploadImageProvider();
@@ -135,7 +109,7 @@ public class UploadImageProvider {
     }
 
     /**
-     * 设置图片服务器地址，默认：http://113.247.237.98:10002/upload
+     * 设置图片服务器地址，默认：http://service.i-etong.com:55068/service/pic-upload
      *
      * @param url 服务器地址
      */
@@ -145,27 +119,42 @@ public class UploadImageProvider {
     }
 
     /**
+     * 初始化配置
+     * @param ticket
+     * @param sysid
+     * @param dir
+     * @param cid
+     */
+    public void setConfig(String ticket,String sysid,String dir,String cid){
+        this.ticket = ticket;
+        this.sysid = sysid;
+        this.dir = dir;
+        this.cid = cid;
+        if(TextUtils.isEmpty(cid)){
+            this.cid = "Android";
+        }
+    }
+
+    /**
      * @param bitmap 将上传的图片
      * @param tag    事件回调标签
      * @param id     标识
      */
-    public void uploadImage(final Bitmap bitmap, String tag, String id) {
+    public int uploadImage(final Bitmap bitmap, String tag, String id) {
+        if (TextUtils.isEmpty(ticket) || TextUtils.isEmpty(sysid) || TextUtils.isEmpty(dir)) {
+            Logger.e("配置异常，请完成初始化配置");
+            return CONFIG_ERROR;
+        }
         // 判断网络是否可用
         // 网络不可用时不进行网络连接
         if (!checkNetworkState()) {
-            JSONObject data = new JSONObject();
-            data.put("errCode", NETWORK_ERROR);
-            data.put("errName", "网络异常");
-            EventBus.getDefault().post(data, tag);
-            return;
+            Logger.e("网络异常");
+            return NETWORK_ERROR;
         }
 
         if (bitmap == null) {
-            JSONObject data = new JSONObject();
-            data.put("errCode", DATA_ERROR);
-            data.put("errName", "数据异常，Bitmap 为空");
-            EventBus.getDefault().post(data, tag);
-            return;
+            Logger.e("数据异常，Bitmap 为空");
+            return DATA_ERROR;
         }
         final String filename = System.currentTimeMillis() + ".jpg";
         HashMap map = new HashMap();
@@ -195,26 +184,36 @@ public class UploadImageProvider {
                 }
             }
         };
-        builder.addFormDataPart("dir", filename, fileBody);
+        builder.addFormDataPart(dir, filename, fileBody);
         Request request = new Request.Builder()
                 .url(IMAGE_UPDATE_ADDR)
                 .post(builder.build())
+                .addHeader("ticket",ticket)
+                .addHeader("sysid",sysid)
+                .addHeader("cid",cid)
+                .addHeader("dir",dir)
                 .tag(map)
                 .build();
         queueSize++;
         client.newCall(request).enqueue(callback);
+        return 0;
     }
 
     /**
      * @param AbsolutePath 图片路径
      * @param tag          回调标签
      * @param id           标识
+     * @return int
      */
-    public void uploadImage(final String AbsolutePath, String tag, final String id) {
+    public int uploadImage(final String AbsolutePath, String tag, final String id) {
+        if(TextUtils.isEmpty(ticket)||TextUtils.isEmpty(sysid)||TextUtils.isEmpty(dir)){
+            Logger.e("配置异常，请完成初始化配置");
+            return CONFIG_ERROR;
+        }
         File file = new File(AbsolutePath);
         if (!file.exists()) {
             Logger.e("文件不存在");
-            return;
+            return DATA_ERROR;
         }
         String filename = System.currentTimeMillis() + "." + getExtensionName(file.getName());
         HashMap map = new HashMap();
@@ -225,14 +224,19 @@ public class UploadImageProvider {
                 .setType(MultipartBody.FORM);
 
         RequestBody fileBody = RequestBody.create(MediaType.parse(guessMimeType(filename)), new File(AbsolutePath));
-        builder.addFormDataPart("dir", filename, fileBody);
+        builder.addFormDataPart(dir, filename, fileBody);
         Request request = new Request.Builder()
                 .url(IMAGE_UPDATE_ADDR)
                 .post(builder.build())
+                .addHeader("ticket",ticket)
+                .addHeader("sysid",sysid)
+                .addHeader("cid",cid)
+                .addHeader("dir",dir)
                 .tag(map)
                 .build();
         queueSize++;
         client.newCall(request).enqueue(callback);
+        return 0;
     }
 
     private static String guessMimeType(String path) {
